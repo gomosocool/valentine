@@ -8,76 +8,158 @@
   <style>
     body {
       margin: 0;
-      height: 100vh;
       background: linear-gradient(135deg, #ff758c, #ff7eb3);
-      font-family: 'Arial', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
+      font-family: Arial, sans-serif;
       color: white;
+      text-align: center;
+      overflow-x: hidden;
     }
 
-    .card {
-      background: rgba(0,0,0,0.2);
-      padding: 30px;
+    .section {
+      padding: 40px 20px;
+      animation: fadeIn 1.5s ease;
+    }
+
+    img {
+      width: 90%;
+      max-width: 320px;
       border-radius: 20px;
-      max-width: 350px;
-      animation: fadeIn 2s ease;
-    }
-
-    h1 {
-      font-size: 2em;
-      margin-bottom: 10px;
-    }
-
-    p {
-      font-size: 1.1em;
-      margin-bottom: 20px;
+      margin: 20px 0;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.35);
     }
 
     button {
       background: white;
       color: #ff4f81;
       border: none;
-      padding: 12px 20px;
+      padding: 12px 22px;
       border-radius: 25px;
       font-size: 1em;
       cursor: pointer;
-      transition: transform 0.2s;
+      margin: 10px;
     }
 
-    button:hover {
-      transform: scale(1.05);
+    .hidden {
+      display: none;
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
+      from { opacity: 0; transform: translateY(15px); }
       to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Floating hearts */
+    .heart {
+      position: fixed;
+      bottom: -20px;
+      font-size: 20px;
+      animation: floatUp 6s linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-110vh); opacity: 0; }
     }
   </style>
 </head>
-<body>
 
-  <div class="card">
-    <h1>Hey my love ❤️</h1>
-    <p>
-      I just wanted to tell you how special you are to me.<br>
-      You make my days brighter and my heart fuller.
-    </p>
+<body onclick="startMusic()">
 
-    <button onclick="ask()">Tap here 💕</button>
-  </div>
+<!-- BACKGROUND MUSIC -->
+<audio id="bgMusic" loop>
+  <source src="song.mp3" type="audio/mpeg">
+</audio>
 
-  <script>
-    function ask() {
-      document.querySelector('.card').innerHTML = `
-        <h1>💌</h1>
-        <p>Will you be my Valentine?</p>
-        <p>🌹</p>
-      `;
+<!-- STEP 1 -->
+<div class="section" id="step1">
+  <h1>Hey my love ❤️</h1>
+  <p>I made this just for you.</p>
+  <button onclick="nextStep(1)">Tap to continue 💕</button>
+</div>
+
+<!-- STEP 2 -->
+<div class="section hidden" id="step2">
+  <p>One of my favourite memories 🥰</p>
+  <img src="70C3A330-D7DE-406F-A236-CC5ADFA4644A_1_105_c.jpeg">
+  <button onclick="nextStep(2)">Next 💖</button>
+</div>
+
+<!-- STEP 3 -->
+<div class="section hidden" id="step3">
+  <p>You always look this beautiful to me ✨</p>
+  <img src="BAD5C2F0-01CE-4CFE-BB64-A7007E3EE856_1_105_c.jpeg">
+  <button onclick="nextStep(3)">Keep going 💫</button>
+</div>
+
+<!-- STEP 4 -->
+<div class="section hidden" id="step4">
+  <p>Every moment with you feels like home 🏡</p>
+  <img src="6FC91FA2-FA94-4E4E-B3FE-EB0F5921D0BD_1_105_c.jpeg">
+  <button onclick="nextStep(4)">Almost there 💌</button>
+</div>
+
+<!-- FINAL -->
+<div class="section hidden" id="step5">
+  <img src="14EBB68E-44A2-4A66-9EF3-C5DAB46D507E_1_105_c.jpeg">
+  <h1>Will you be my Valentine? 💘</h1>
+
+  <button onclick="yes()">YES 😍</button>
+  <button id="noBtn">No 🙃</button>
+</div>
+
+<script>
+  // Step navigation
+  function nextStep(step) {
+    document.getElementById("step" + step).classList.add("hidden");
+    document.getElementById("step" + (step + 1)).classList.remove("hidden");
+  }
+
+  // YES button
+  function yes() {
+    document.body.innerHTML = `
+      <div class="section">
+        <h1>❤️❤️❤️</h1>
+        <p>You just made me the happiest person ever.</p>
+        <p>I love you.</p>
+      </div>
+    `;
+  }
+
+  // NO button prank
+  const noBtn = document.getElementById("noBtn");
+  if (noBtn) {
+    noBtn.addEventListener("mouseover", moveNo);
+    noBtn.addEventListener("click", moveNo);
+  }
+
+  function moveNo() {
+    noBtn.style.position = "absolute";
+    noBtn.style.left = Math.random() * 70 + "vw";
+    noBtn.style.top = Math.random() * 70 + "vh";
+  }
+
+  // Floating hearts generator
+  setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerText = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = Math.random() * 20 + 15 + "px";
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 6000);
+  }, 500);
+
+  // Music autoplay (mobile-safe)
+  let musicStarted = false;
+  function startMusic() {
+    if (!musicStarted) {
+      document.getElementById("bgMusic").play();
+      musicStarted = true;
     }
-  </script>
+  }
+</script>
 
 </body>
 </html>
