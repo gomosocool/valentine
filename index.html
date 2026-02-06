@@ -65,12 +65,14 @@
 </head>
 
 <body onclick="startMusic()">
-<div id="content">
-  
-<!-- BACKGROUND MUSIC -->
+
+<!-- BACKGROUND MUSIC (KEEP THIS OUTSIDE CONTENT) -->
 <audio id="bgMusic" loop>
   <source src="song.mp3" type="audio/mpeg">
 </audio>
+
+<div id="content">
+
 
 <!-- STEP 1 -->
 <div class="section" id="step1">
@@ -152,7 +154,7 @@
     document.body.appendChild(heart);
 
     setTimeout(() => heart.remove(), 6000);
-  }, 500);
+  }, 700);
 
    setInterval(() => {
     const heart = document.createElement("div");
@@ -163,7 +165,7 @@
     document.body.appendChild(heart);
 
     setTimeout(() => heart.remove(), 6000);
-  }, 500);
+  }, 700);
 
 
   // Music autoplay (mobile-safe)
