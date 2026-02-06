@@ -120,16 +120,24 @@
   }
 
   // YES button
-  function yes() {
-   document.getElementById("content").innerHTML = `
-      <div class="section">
-        <h1>❤️❤️❤️</h1>
-        <p>You just made me the happiest person ever.</p>
-        <p>I love you infinity x infinity.</p>
-        <p>Now sit back, and listen to MY new favourite song!</p>
-      </div>
-    `;
+ function yes() {
+  const music = document.getElementById("bgMusic");
+
+  document.getElementById("content").innerHTML = `
+    <div class="section">
+      <h1>❤️❤️❤️</h1>
+      <p>You just made me the happiest person ever.</p>
+      <p>I love you infinity x infinity.</p>
+      <p>Now sit back, and listen to MY new favourite song!</p>
+    </div>
+  `;
+
+  // Explicitly resume music (mobile-safe)
+  if (music.paused) {
+    music.play();
   }
+}
+
 
   // NO button prank
   const noBtn = document.getElementById("noBtn");
