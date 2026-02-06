@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>For You ❤️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: white;
+    }
+
+    .card {
+      background: rgba(0,0,0,0.2);
+      padding: 30px;
+      border-radius: 20px;
+      max-width: 350px;
+      animation: fadeIn 2s ease;
+    }
+
+    h1 {
+      font-size: 2em;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1.1em;
+      margin-bottom: 20px;
+    }
+
+    button {
+      background: white;
+      color: #ff4f81;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 25px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h1>Hey my love ❤️</h1>
+    <p>
+      I just wanted to tell you how special you are to me.<br>
+      You make my days brighter and my heart fuller.
+    </p>
+
+    <button onclick="ask()">Tap here 💕</button>
+  </div>
+
+  <script>
+    function ask() {
+      document.querySelector('.card').innerHTML = `
+        <h1>💌</h1>
+        <p>Will you be my Valentine?</p>
+        <p>🌹</p>
+      `;
+    }
+  </script>
+
+</body>
+</html>
